@@ -15,6 +15,16 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   example-package = pkgs.callPackage ./pkgs/example-package { };
+
+  qrookie =
+    let
+      buildToolsVersion = "34.0.0";
+      androidComposition = pkgs.androidenv.composeAndroidPackages {
+        buildToolsVersions = [ buildToolsVersion ];
+      };
+      zipAlignPath = "${androidComposition.androidsdk}/libexec/android-sdk/build-tools/${buildToolsVersion}";
+    in
+    pkgs.callPackage ./pkgs/qrookie { inherit zipAlignPath; };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
