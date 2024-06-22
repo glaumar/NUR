@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "qrookie";
-  version = "0.3.0";
+  version = "0.3.1";
   src = fetchgit {
     url = "https://github.com/glaumar/QRookie.git";
-    rev = "dec2f8ab09868a45019bc8e46de70d0bb43852cd";
+    rev = "v0.3.1";
     fetchSubmodules = false;
     fetchLFS = true;
-    sha256 = "sha256-dtsSbJ0w/5gaW4Y8Jd+QwVo+QtiJZGNed44U+MgCxSc=";
+    sha256 = "sha256-eNK6mqoM4Cj5QwMr2seWywNRJzO7n8YkfQwxj9J4Xuk=";
   };
 
   nativeBuildInputs = with pkgs; [
