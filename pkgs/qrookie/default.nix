@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "qrookie";
-  version = "0.3.1";
+  version = "0.3.3";
   src = fetchgit {
     url = "https://github.com/glaumar/QRookie.git";
-    rev = "v0.3.1";
+    rev = "v0.3.3";
     fetchSubmodules = false;
     fetchLFS = true;
-    sha256 = "sha256-eNK6mqoM4Cj5QwMr2seWywNRJzO7n8YkfQwxj9J4Xuk=";
+    sha256 = "sha256-CpzVpmIC4jAWGKTIjI2ne84k7cltRV5qIr6KBxS0guc=";
   };
 
   nativeBuildInputs = with pkgs; [
@@ -33,28 +33,11 @@ stdenv.mkDerivation rec {
     kdePackages.kirigami
     kdePackages.qtsvg
     kdePackages.qtimageformats
-  ] ++ (if (system == "x86_64-linux" || system == "aarch64-linux")
-  then [ kdePackages.qqc2-breeze-style ]
-  else [
-    (whitesur-icon-theme.overrideAttrs
-      (finalAttrs: previousAttrs: {
-        nativeBuildInputs = [ gtk3 fdupes ];
-        installPhase = ''
-          runHook preInstall
-
-          ./install.sh --dest $out/share/icons \
-            --name WhiteSur \
-            --theme ${builtins.toString themeVariants} \
-            ${lib.optionalString alternativeIcons "--alternative"} \
-            ${lib.optionalString boldPanelIcons "--bold"} \
-            ${lib.optionalString blackPanelIcons "--black"}
-
-          fdupes --symlinks --recurse $out/share
-
-          runHook postInstall
-        '';
-      }))
-  ]);
+  ] ++ lib.optionals stdenv.isLinux [ 
+    kdePackages.qqc2-breeze-style 
+  ] ++ lib.optionals stdenv.isDarwin [
+    kdePackages.breeze-icons
+  ];
 
   qtWrapperArgs = with pkgs;[
     ''
