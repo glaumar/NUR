@@ -2,22 +2,18 @@
 , fetchgit
 , lib
 , pkgs
-, themeVariants ? [ ]
-, alternativeIcons ? false
-, boldPanelIcons ? false
-, blackPanelIcons ? false
 , zipAlignPath
 }:
 
 stdenv.mkDerivation rec {
   pname = "qrookie";
-  version = "0.3.3";
+  version = "0.3.4";
   src = fetchgit {
     url = "https://github.com/glaumar/QRookie.git";
-    rev = "v0.3.3";
+    rev = "v0.3.4";
     fetchSubmodules = false;
     fetchLFS = true;
-    sha256 = "sha256-CpzVpmIC4jAWGKTIjI2ne84k7cltRV5qIr6KBxS0guc=";
+    sha256 = "sha256-6S/qC35fCFaoESaxafrEJheuil4QXPtzMnH2fqkbgQU=";
   };
 
   nativeBuildInputs = with pkgs; [
